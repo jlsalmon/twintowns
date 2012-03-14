@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<group_metafile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://www.cems.uwe.ac.uk/~pchatter/2011/dsa/dsa_metafiles/group_metafile.xsd">
+    
+    <module id="UFCEKG-20-2" acronymn="DSA">
+        <title>Data Schema&apos;s &amp; Applications</title>
+        <year>2011</year>
+        <hand_in>2012-02-23</hand_in>
+        <spec_url>http://www.cems.uwe.ac.uk/~p-chatterjee/2011/dsa/DSA_CW_Spec.html</spec_url>
+    </module>
+    
+    <group id="UYCCYT1MR6">
+        <workshop>
+            <day>Monday</day>
+            <time>10:00</time>
+            <tutor>MM</tutor>
+        </workshop>
+        <!-- A list of the twinned cities (many allowed) -->
+        <cities>
+            <city>Exeter</city>
+            <city>Rennes</city>
+            <city>Bad_Homburg</city>
+            <city>Terracina</city>
+            <city>London</city>
+            <city>Beijing</city>
+            <city>Berlin</city>
+            <city>Bogota</city>
+            <city>Moscow</city>
+            <city>New_York</city>
+            <city>Kuala_Lumpur</city>
+            <city>Paris</city>
+            <city>Rome</city>
+            <city>Tehran</city>
+            <city>Tokyo</city>
+        </cities>
+        <!-- Each student should have contributed to one or more components 
+            Components must be of the type Map or Weather or News or Other -->
+        <student id="10010381">
+            <component type="Map">
+                <description> 
+                    My work on the maps component is all contained in the maps tab of the site. 
+                    The tab loads two Google maps, one for the current town (UK towns) and the other
+                    to display one of the UK town's twins.
+                    
+                    When the Maps tab is clicked it loads a php file which displays the bare bones of the 
+                    page and uses jquery in javascript to load the XML config file and inject the google 
+                    maps script into the page.
+                    
+                    When the google maps script is loaded it calls the initialize() function in the maps.js 
+                    file which loads the maps, markers and services all the map changes and behaviours.
+                    
+                    When you change the twin (or town - which also the changes the twin) using the town/twin
+                    select boxes at the top of the page, the new towns are displayed using javascript,
+                    nothing new is loaded with the exception of the place of interest (POI) data from
+                    the Lonely Planet API (see individual component).
+                    
+                    The map also loads a static google map image, which shows the current towns 
+                    pinpointed in relation to other countries. This was generated as an image from the 
+                    google static maps API beforehand and saved on the server. The script loads the 
+                    filepath from the XML config file. To display this map image as a control on the map
+                    I had to subclass the google maps control class and effectively create a custom google
+                    maps control.
+                    
+                    Each town displayed has a set of bounds, created from latitude and longitude points 
+                    (stored in the XML config file) and if the user pans the map out of these bounds
+                    the map will snap back to the center of the map. This stops the user from getting 
+                    lost if they pan the map out of the city limits.
+                    As my individual component I used the Lonely Planet API to get point of interest
+                    data and then plotted those points of interest as map markers on the map. For more
+                    details see my individual component.
+                </description>
+                <problems> 
+                    1.  My first major problem was getting the maps to load inside the jQuery UI tabs.
+                        The problem consisted of multiple issues:
+                        a.  Familiarity with jQuery - Not having used jQuery before, I struggled to 
+                            understand the structure and workings of the jQuery Tabs UI that Justin had 
+                            chosen to use for the site. The problem was focused around loading the google
+                            maps script after everything on the page had loaded, the standard javascript 
+                            window.onload event didn't seem to get called.
+                        b.  Intricacies of CSS involved in displaying and positioning the map - This further
+                            added to my problem getting the maps to display in the jQuery tab. When using the
+                            jQuery $(document).ready() function the javascript would return no errors but the
+                            map still wouldn't display. 
+                    2.  My second problem was to find the best way to asyncronously load the maps, each town
+                        and each towns markers. Finding the most efficient way to load the map, making 100% 
+                        sure any ajax request would complete before any data returned was needed by the script 
+                        was a difficult task. This was an ongoing problem as I had to alter the structure of 
+                        the code on numerous occasions throughout the project.
+                    3.	Switching between tabs caused the Google maps not to display properly. 
+                    4.	Markers didn't load when switching tabs.
+                    5.	There was another issue which I think could have easily been solved if I had more time: 
+						because of the nature of the code the maps only finish loading after the markers load and 
+						because the two sets of markers load asynchronously I had to create a simple increment 
+						mechanism so that the script knew when both maps had loaded so it could hide the loading 
+						image. This was a simple mechanism that when a ajax callback function finished loading a set
+						of markers, it incremented a counter and called hideSpinner() which would only hide the 
+						spinner if the count had reached 2 (both maps loaded). This mechanism worked well if you 
+						waited for each process to be carried out before, for example, switching a town or changing
+						to another tab. But if you interrupted the process, the whole state of the system would be
+						out of sync. Javascript has support for custom events which can be fired and sent directly 
+						to event handlers so in theory I could have used this instead of the increment mechanism and
+						also used it to maintain state when the scripts are interrupted.
+                </problems>
+                <solutions> 
+                    1.  a.  Familiarity with jQuery - I bought a book on jquery and read through most of
+                            it. Having good knowledge of jQuery in general massively helped me later in the
+                            project when I worked on the maps.js script. I learned that I should use 
+                            $(document).ready() jQuery event rather than window.onload to load the google
+                            maps script after all the page html in the tab had loaded.
+                        b.  Intricacies of CSS involved in displaying and positioning the map - After finding
+                            the right CSS in isolation (outside of the jQuery tabs) and getting the javascript
+                            to load in the tab, I merged this together and got both working to display the map.
+                    2.  I had to alter the structure of the code many times throughout the project but eventually 
+                        I found a very efficient solution. After adding London and all 10 of its twin towns to the
+                        config file I found that the maps markers loaded unacceptably slow. This forced me to
+                        re-work the structure of the script to make it much more efficient.
+            		3.	The solution to this was to alter the css used then the hide() method was called in jQuery,
+            			instead of setting the css display property to none I pushed the maps sufficiently off the 
+            			screen.
+            		4.	I solved this by altering the maps script so that when the page wasn't cached it would clear
+            			the state of the markers when loaded and the initialize() method (called when the page loads)
+            			would then be able to draw the markers again.
+                </solutions>
+                <hours_effort>30</hours_effort>
+            </component>
+            <component type="Other">
+                <description>
+                	This component allows the user to select what UK town to display and then which corresponding
+                	twin town to display next to it.
+                	
+                	The concept of having a town and one of its twins displayed next to eachother was the result of
+                	a big discussion amongst the team on the layout of the site. This component alone achieves this
+                	concept within the jQuery tabs UI.
+                	
+                	The component updates the page according to which town and which of its twins is selected. 
+                	I worked on this component in collaboration with Justin. Justin had started work on this component 
+                	initially and laid down the structure of the script so that when a town or twin changed it updated
+                	PHP session variables refreshed the page display the updated town(s). I extended this functionality 
+                	for the maps page where refreshing the page would create an unacceptable overhead and updating the 
+                	towns was entirely possible by communicating with the already loaded Google map objects.
+                </description>
+                <problems>
+					1.	Testing if the current tab is the maps tab - To only call functions to the Google map objects when
+						the maps tab is being currently viewed I had to look through the jQuery UI documentation.
+                </problems>
+                <solutions>
+					1.	Eventually I found that each tab is indexed from 0 and the easiest solution was to test the index
+						of the current tab against 1 (for the maps tab).
+                </solutions>
+                <hours_effort>1</hours_effort>
+            </component>
+        </student>
+        
+        <student id="10000937">
+            <component type="Weather">
+                <description> 
+                    This component is comprised of two separate parts; a small weather box in the Home
+                    tab, and a full-page spread in a dedicated Weather tab.
+                    
+                    The weather box uses PHP to pull and merge XML feeds from Google Weather and
+                    Weather Underground. It contains a small amount of information about current weather
+                    conditions and a 4-day forecast for the currently selected town and its twin.
+                    
+                    The Weather tab contains more detailed current conditions, astronomical data
+                    (sunrise/sunset times), a satellite weather image, plus a detailed 10-day forecast 
+                    for the currently selected town and its twin.
+                    
+                    Both parts are written fully town-neutrally, and rely on the PHP session variables
+                    to pull the correct pieces of information from the configuration XML file.
+                </description>
+                <problems> 
+                    (Problem 1) The free Weather Underground API account is very limited - it only allows
+                    10 requests per minute, or 500 per day. This meant that I would occasionally go over
+                    the limit and get my API key disabled for the rest of the day! Also, the Google
+                    Weather API is quite unreliable, sometimes going down for hours on end. It is an
+                    unofficial API though, so it is to be expected.
+                    
+                    (Problem 2) I was using the PHP xpath() method to make XPath queries on the config XML
+                    tree, but I was getting an error when trying to access the text inside child of a node.
+                    The method seemed to be returning an array, even if the node had only a single child.
+                    A quick look at the documentation confirmed this.   
+                    
+                    (Problem 3) I had a problem where I couldn't load the Google Weather XML file for Bad
+                    Homburg. This was strange, as the feed would load for all other towns. The error was
+                    being thrown by SimpleXML.
+                    
+                    (Problem 4) When I came to port the site to the UWE server, I experienced some strange issues.
+                    They were not proxy-related, as I had already wrapped the necessary function calls with a 
+                    function that uses the UWE proxy based on a global boolean, and I had set it to true when
+                    I uploaded it. I went through many stages of debugging, dumping variables to see where the
+                    error was. There were many different, seemingly unrelated errors.
+                </problems>
+                <solutions> 
+                    (Solution 1) I had to make sure I made as few requests as possible, by altering my
+                    development style from small, quick edits to larger, more carefully thought out edits.
+                    Also, when I was styling the component with CSS, I was able to use the Chrome developer
+                    console to change styles on the fly. I could get the styles how I wanted them in the
+                    browser, then copy them into the CSS file later, to save on page refreshes. Of course,
+                    when not editing the Weather component, I simply disabled it. (Paying money for the API
+                    wasn't an option :) )
+                    
+                    (Solution 2) I had to treat every variable I created from the returned value as an
+                    array, turning statements like "$town->name" into "$town[0]->name". This is very ugly,
+                    but it was the only solution I could find.
+                    
+                    (Solution 3) Upon inspecting the returned XML for Bad Homburg, I noticed that there were
+                    some German characters in the file. So, I simply wrapped the function call that loaded 
+                    the feed with a call to utf8_encode(), which resulted in the characters being accepted
+                    by SimpleXML.
+                    
+                    (Solution 4) When I did a var_dump() on the $_SESSION array, it contained my entire config XML 
+                    tree! It should have only contained two strings - the name of the current town and twin. So, I 
+                    figured that it was somehow getting placed in there (I was certainly not putting it there).
+                    I was looping through the array, thinking that there were only 2 strings in there, so this 
+                    was the source of my problem.
+                    I knew about PHP register_globals, which puts any variable you create into $_SESSION, and it
+                    turns out that the UWE servers have this turned on by default for some reason. So, to turn it
+                    off in my directory, I created a .htaccess file with the line "php_flag register_globals off"
+                    and, hey presto, everything worked.
+                </solutions>
+                <hours_effort>30</hours_effort>
+            </component>
+            <component type="Other">
+                <description>
+                    This component is the "Town Chooser" component. It places two drop-down boxes at the top of the
+                    page; one to select a town, one to select a twin for that town. It supports any number of 
+                    towns, utilising the structure of the configuration file to populate itself. This means that, 
+                    to add a new town to the site, all we have to do is add an XML block in the configuration with
+                    the necessary data (Weather station ID, latitude/longitude, Lonely Planet ID, news feed URL), 
+                    do the same for the town's twins, and they will become selectable and viewable in the 
+                    application.
+                    
+                    The component uses a mix of PHP, HTML5/CSS3 and Javascript/jQuery.
+                </description>
+                <problems>
+                    (Problem 1) We wanted to be able to switch between towns and twins smoothly, without refreshing
+                    the page every time, something which isn't possible with PHP alone. We rely on PHP session 
+                    variables to store the current town and twin, so we needed a way of updating these and reloading
+                    the page content without refreshing it.
+                    
+                    (Problem 2) Switching towns and twins worked well, until we came to port the site to the UWE
+                    server. The onchange() method was being called, the session variables were being set, and the
+                    tabs were being refreshed - but the content was still for the previous town!
+                </problems>
+                <solutions>
+                    (Solution 1) We combined PHP with Javascript, making use of the onchange() method of the HTML
+                    select boxes. When the user changes one of these, an AJAX Post request is sent to a PHP file,
+                     which updates the session variables. The tab itself is then reloaded (as it uses AJAX too!).
+                    
+                    (Solution 2) After many headaches, we figured out the problem. AJAX Post requests are 
+                    asynchronous, so there is a chance that the tabs can be refreshed before the session variables
+                    are set if the post request takes a long time. Our computers are very fast, and the UWE server
+                    is relatively slow in comparison - this was exactly our problem. We needed to update the session
+                    synchronously, so we put the tab refresh code inside a synchronous success function, which
+                    solved the problem nicely.
+                </solutions>
+                <hours_effort>8</hours_effort>
+            </component>
+            
+        </student>
+        
+<student id="10018627">
+
+            <component type="News">
+
+                <description>
+
+                    The news component is a jQuery feed reader, attributed to Zazar Ltd. It is dynamically
+
+                    populated with RSS feeds from Topix.com, with the specific RSS feed being loaded based 
+
+                    upon the currently selected town and twin.
+
+                </description>
+
+                <problems>
+
+                    (Problem 1) The original solution was an API call from Google called Feed Reader, try as we might the service was 
+
+                    outrageously temperamental. It was getting close to the deadline, so we worked together to try and make some progress. The 
+
+                    reader was an externally loaded script from Google, and it was very unreliable, and seemed
+
+                    to cause a lot of strange and unpredictable errors, at times even affecting the operation
+
+                    of other (separate) scripts on the page.
+
+                </problems>
+
+                <solutions>
+
+                    (Solution 1) After 4 hours, we ditched the first solution and found another feed reader.
+
+                    It turned out to be better than the original one, anyway. Once we had built the town
+
+                    neutrality into the new script to bring it in line with the rest of the components.
+                 </solutions>
+
+                <hours_effort>10</hours_effort>
+
+            </component>
+
+        </student>
+    </group>
+    <!-- This section gives a link to 1-2 group components, lists the techohnolgies used and 
+        points to any number of source files. Note that the more that these links work - 
+        the higher the mark for this section. Of course - the base_url link must work!! -->
+    <application>
+        <base_url>http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/</base_url>
+        <technologies>
+            <tech>php</tech>
+            <tech>html5</tech>
+            <tech>xml</tech>
+            <tech>javascript</tech>
+            <tech>css</tech>
+            <tech>xslt</tech>
+            <tech>css</tech>
+            <tech>other</tech>
+        </technologies>
+        <config_source>
+            http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/config.xml
+        </config_source>
+        <source_files>
+            <file>
+                <name>group_source_files.html</name>
+                <purpose>
+                    Link to full source file listing for all group components.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/group_source_files.html
+                </source_url>
+            </file>
+        </source_files>
+    </application>
+    <!-- reflective evaluation of the development process & learning outcomes -->
+    <overall_comments>
+        The application is fully town-independent. Any number of new towns and their twins can be
+        added simply by inserting the necessary information inside XML blocks for the town and its 
+        twins. The new towns will then automatically be selectable on the site. 
+        
+        This is acheived by making use of PHP sessions and the $_SESSION superglobal array. The
+        names of the current town and twin are stored in the session array, and are hence accessible
+        within any file in the application. Each file in the application queries the session variables,
+        and uses them to pull the relevant infromation from the configuration file.
+        
+        The development process was relatively smooth and comfortable; we completed most of the site
+        by mid-February, so we had plenty of time to do final polishing and tweaking. We used an agile 
+        Scrum development methodology while developing the site; we each prototyped our own components 
+        locally, then uploaded and integrated them at regular intervals, with constant communication 
+        through physical meetings and remotely over Teamspeak and Skype.
+        
+        From the assignment we learnt a lot about group development. We learned the importance of having
+        shared access to the source files; there were a couple of times when more than one of us was
+        editing a file locally at the same time, and the file got trashed when the second person saved
+        it, overwriting the first person's edits.
+        
+        If we had more time we would add more components, add more types of overlay to the Maps component,
+        maybe integrate Weather data into it. There is room for improvement aesthetically as well.
+       
+       	Further expansion could be made on map points of interest: to enrich content, place names could be 
+        used to pull images and even videos related to that place.
+        
+        Although we decided to work on relatively independent components individually, we knew that
+        communication was paramount throughout the whole development process. Knowing what the bigger
+        picture was at each step allowed us to quickly adapt our components as the site evolved.
+        
+        Incremental backups were performed fairly regularly and on some occasions, when crucial developments were being made, backups would be done on an hourly basis.
+        
+        Having decided on the structure of the site early on made the development process much more 
+        efficient, this allowed us to work freely on our own components in the first place. The agreed
+        structure of the site refers to the layout, having on each page: one town compared to one of 
+        its twins, side by side, both taking up half the width of the central container for each group of
+        components. As a group we knew that finding this structure was essential to having an ergonomic,
+        well-organised user-interface and also to defining clear cut sections of the system so we could divide work between us.
+        
+        I think the layout and structure of the site is what has made the site work really well, It 
+        perfectly glues all of our separately developed components and with well defined CSS looks
+        consistent and professional.
+    </overall_comments>
+</group_metafile>

@@ -1,0 +1,83 @@
+/* 
+    Document   : twitter.css
+    Created on : 19-Feb-2012, 12:03:42
+    Author     : Justin Lewis Salmon
+    Description:
+        Styles specific to the twitter feed module.
+*/
+
+#twitter {
+    font-size: 15px;
+    color: #333333; 
+    width: 49%;
+}
+
+#twitter .box-rounded {
+    height: 460px;
+}
+
+#twitter-container {
+    padding: 5px;
+
+}
+
+#twitter-wrapper {
+    height:475px;
+}
+
+#twitter table {
+    width:auto;
+    border: 0;
+}
+
+#twitter .tweet { 
+    padding: 2px 2px 2px 2px;
+    width: 100%;
+    height: 75px;
+    white-space: normal;
+    overflow: hidden;
+}
+
+#twitter .tweet a {
+    text-decoration: none;
+    color: #13c9d0;
+}
+
+#twitter .tweet a:hover {
+    text-decoration: underline;
+}
+
+#twitter .tweet .time {
+    font-size: 10px;
+    font-style: italic;
+    color: #666666;
+}
+
+#twitter td {
+    border:none;
+}
+
+#twitter .twitter-left {
+    text-align: left !important;
+    float: left !important;
+    font-size: small;
+}
+
+#twitter .twitter-right {
+    text-align: right !important;
+    float: right !important;
+    font-size: small;
+}
+
+#twitter .twitter-right td {
+    width: 100%
+}
+
+#twitter .user {
+    font-weight: bold;
+}
+
+#twitter .tweet span.text {
+    white-space: normal;
+    overflow: hidden;
+}

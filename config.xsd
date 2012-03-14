@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xs:element name="config">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="module"/>
+        <xs:element maxOccurs="unbounded" ref="town"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="module">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="apikey"/>
+        <xs:choice>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="url"/>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="baseurl"/>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="apikey" type="xs:string"/>
+  <xs:element name="url">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="base"/>
+        <xs:element ref="attrib"/>
+        <xs:element minOccurs="0" ref="image"/>
+        <xs:element minOccurs="0" ref="params"/>
+      </xs:sequence>
+      <xs:attribute name="source" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="base" type="xs:anyURI"/>
+  <xs:element name="attrib" type="xs:anyURI"/>
+  <xs:element name="image" type="xs:string"/>
+  <xs:element name="params">
+    <xs:complexType>
+      <xs:attribute name="forecast_ext"/>
+      <xs:attribute name="include_entities" type="xs:boolean"/>
+      <xs:attribute name="limit" type="xs:integer"/>
+      <xs:attribute name="live_ext"/>
+      <xs:attribute name="rpp" type="xs:integer"/>
+      <xs:attribute name="search_radius" type="xs:NMTOKEN"/>
+      <xs:attribute name="type" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="baseurl">
+    <xs:complexType mixed="true">
+      <xs:attribute name="service" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="town">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element minOccurs="0" ref="twins"/>
+        <xs:element ref="location"/>
+        <xs:element ref="bounds"/>
+        <xs:element ref="timezone"/>
+        <xs:element ref="maps"/>
+        <xs:element ref="lonelyplanet"/>
+        <xs:element ref="weather"/>
+        <xs:element ref="news"/>
+        <xs:element minOccurs="0" ref="team"/>
+      </xs:sequence>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="twins">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="twin"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="twin" type="xs:string"/>
+  <xs:element name="location">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="lat"/>
+        <xs:element ref="long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bounds">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="lat"/>
+        <xs:element ref="long"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="timezone" type="xs:NCName"/>
+  <xs:element name="maps">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mapimg"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mapimg" type="xs:string"/>
+  <xs:element name="lonelyplanet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="placeid"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="placeid" type="xs:integer"/>
+  <xs:element name="weather">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="source"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="source">
+    <xs:complexType>
+      <xs:attribute name="google_search_q"/>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+      <xs:attribute name="wunderground_station_id" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="news">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="team"/>
+        <xs:element ref="feed"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="feed" type="xs:anyURI"/>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="lat" type="xs:decimal"/>
+  <xs:element name="long" type="xs:decimal"/>
+  <xs:element name="team" type="xs:NCName"/>
+</xs:schema>

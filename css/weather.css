@@ -1,0 +1,189 @@
+/* 
+    Document   : weather.css
+    Created on : 19-Feb-2012, 12:02:56
+    Author     : Justin Lewis Salmon
+    Description:
+        Styles specific to the weather info module.
+*/
+
+#weather span {
+    padding: 10px;
+}
+
+#weather span.conditions {
+    font-size: 18px;
+    padding-right:5px;
+}
+
+#weather span.day {
+    font-size: 14px;
+    padding: 0;
+}
+
+#weather span.date {
+    padding: 0;
+}
+
+#weather span.large {
+    font-size: 18px;
+    padding: 0;
+}
+
+#weather span.temp {
+    font-size: 16px;
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+#weather span.small {
+    font-size: 8px;
+    padding: 0px;
+}
+
+#weather span.tiny {
+    font-size: 8px;
+}
+
+#weather span.cond {
+    font-size: 12px;
+}
+
+#weather span.lastupd {
+    font-size: 8px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 5px;
+}
+
+#weather span.astro {
+    font-size: 9px;
+    color: #555;
+    white-space: nowrap;
+    padding-right: 5px;
+}
+
+#weather img.img {
+    width: 40px;
+    height: 40px;
+    margin: 0px auto;
+}
+
+#weather img.img-big {
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#weather img.img-big-right {
+    width: 60px;
+    height: 60px;
+    float: right;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#weather strong.feels-like {
+    padding: 10px;
+    padding-right: 5px;
+}
+
+#weather td.bigbox {
+    border-left: none;
+    border-right: none;
+}
+
+#weather tr.bigbox {
+    border-bottom: 1px solid #ccc;
+}
+
+#weather td.satellite {
+    border: none;
+    border-left: 1px solid #ccc;
+    float: right;
+}
+
+#weather img.satellite {
+    width: 120px;
+    height: 120px;
+    display: table;
+}
+
+#weather td.satellite-right {
+    border: none;
+    border-right: 1px solid #ccc;
+    float:left;
+}
+
+#weather #forecast td {
+    border: 1px solid #ccc;
+}
+
+#weather-box table {
+    width: 48.5%;
+}
+
+#weather-box table.left {
+    float: left;
+    text-align: right;
+}
+
+#weather-box table.right {
+    float: right;
+	text-align: left;
+}
+
+#weather-box table em.town-name {
+    font-size: 18px;
+}
+
+#weather-box table.left td.last-upd {
+    text-align: left;
+}
+
+#weather-box table.right td.last-upd {
+    text-align: right;
+}
+
+#weather-box table td.last-upd {
+    font-size: 10px; 
+    border-top: 1px solid #ccc;
+}
+
+#weather-box img.big-img {
+    height: 60px;
+    width: 60px;
+    display: block;
+    text-align: center;
+    margin:auto;
+}
+
+#weather-box img.small-img {
+    height: 40px;
+    width: 40px;
+    display: block;
+    text-align: center;
+    margin:auto;
+}
+
+#weather-box em.temp {
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    margin:auto;
+}
+
+#weather-box em.temp sup {
+    font-size: 12px;
+    vertical-align: top;
+}
+
+#weather-box small.small {
+    font-size: 10px;
+}
+
+#weather-box small.tiny {
+    font-size: 8px;
+    color: #888
+}

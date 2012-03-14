@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DSA group components source file listing</title>
+    </head>
+    <body style="font-family: serif;">
+        <h2>DSA group components source file listing</h2>
+        <h3>Group ID: UYCCYT1MR6</h3>
+        <ul>
+            <li>
+                <h3>Component: Main Application</h3>
+                <span>Contributors:</span>
+                <ul>
+                    <li>10000937</li>
+                    <li>10010381</li>
+                    <li>10018627</li>
+                </ul>
+                <span>Files:</span>
+                <ul>
+                    <li>
+                        <b>index.php</b>
+                        <br />
+                        <span>Main application file. Instantiates tabbed interface, which loads
+                            site content asynchronously. Purely written in HTML5 and CSS3.</span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/index.phps">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/index.phps
+                            </a>
+                        </p>
+                    </li>
+
+                    <li>
+                        <b>lib.php</b>
+                        <br />
+                        <span>
+                            Contains functions for loading/validating config file and retrieving
+                            remote files from behind UWE proxy.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/lib.phps">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/lib.phps
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>style.css</b>
+                        <br />
+                        <span>
+                            Global CSS styles for all content.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/style.css">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/style.css
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>config.xsd</b>
+                        <br />
+                        <span>
+                            XML Schema for the configuration file. The config file must validate 
+                            against the config file or the site will not load.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/config.xsd">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/config.xsd
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>town-chooser.php</b>
+                        <br />
+                        <span>
+                            Allows hot-swapping between towns and twins. Drop-down boxes are displayed,
+                            which contain lists of towns and their respective twins. Selecting a new
+                            town/twin will cause the page data to be switched to the new selection via
+                            AJAX. This file populates the town/twin chooser drop-down boxes based upon
+                            the current session.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/town-chooser.phps">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/town-chooser.phps
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>town-chooser.js</b>
+                        <br />
+                        <span>
+                            Contains methods for updating PHP session variables via AJAX. These methods
+                            are called when the values of the town/twin selection drop-down boxes at the
+                            top of the page are changed.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/town-chooser.js">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/town-chooser.js
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>process.php</b>
+                        <br />
+                        <span>
+                            This file is called via AJAX when a new town/twin is selected, and sets 
+                            variables in the PHP $_SESSION array so that the page can be refreshed
+                            and content loaded based upon the new town/twin.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/process.phps">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/process.phps
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h3>Component: Maps</h3>
+                <span>Contributors:</span>
+                <ul>
+                    <li>10010381</li>
+                </ul>
+                <span>Files:</span>
+                <ul>
+                    <li>
+                        <b>maps.php</b>
+                        <br />
+                        <span>
+                            Creates the basic HTML structure for the maps page, inserts the google maps script, gets the XML config using ajax and calls the initialize() function in maps.js to load the maps.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/maps.phps">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/maps.phps
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>maps.js</b>
+                        <br />
+                        <span>
+                            Loads the maps object, along with the markers and controls all map functionality.
+                        </span>
+                        <span>Map functionality includes:</span>
+                        <ul>
+                            <li>initialize the map and its markers</li>
+                            <li>toggle the display of markers on the map</li>
+                            <li>toggle the display marker labels (on hover) on the map</li>
+                            <li>initialize the markers (used for map initialization and when you switch town)</li>
+                            <li>get info for a point of interest (when you click on a marker)</li>
+                            <li>switch to a new town</li>
+                            <li>swtich to a new twin</li>
+                        </ul>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/maps.js">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/maps.js
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>maps.css</b>
+                        <br />
+                        <span>
+                            CSS stylesheet for the maps page
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/maps.css">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/maps.css
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>queryLP.phps</b>
+                        <br />
+                        <span>
+                            Retrieves point of interest data from the Lonely Planet API.
+                        </span>
+                        <ul>
+                            <li>sets up a HTTP request including Basic Authentication in the header</li>
+                            <li>called from javascript and returns response</li>
+                        </ul>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/queryLP.phps">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/queryLP.phps
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h3>Component: Weather</h3>
+                <span>Contributors:</span>
+                <ul>
+                    <li>10000937</li>
+                </ul>
+                <span>Files:</span>
+                <ul>
+                    <li>
+                        <b>weather.php</b>
+                        <br />
+                        <span>
+                            Uses XSLT to transform a remote XML feed into HTML. Displays current
+                            weather conditions, astronomical data, current satellite image of the
+                            area, and a 10-day forecast for both town and twin. 
+                            Note: This file should not be executed directly, but accessed via the
+                            Weather tab in index.php.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/weather.phps">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/weather.phps
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>weather_box.php</b>
+                        <br />
+                        <span>
+                            Displays a small weather box containing current conditions and a 4-day
+                            forecast.
+                            Note: This file should not be executed directly, but accessed via the
+                            Home tab in index.php.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/weather_box.phps">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/weather_box.phps
+                            </a>
+                        </p> 
+                    </li>
+                    <li>
+                        <b>wlive_town.xsl</b>
+                        <br />
+                        <span>
+                            XSL Stylesheet for transforming live XML weather data into XHTML for the currently selected main town.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/xsl/wlive_town.xsl">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/xsl/wlive_town.xsl
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>wlive_twin.xsl</b>
+                        <br />
+                        <span>
+                            XSL Stylesheet for transforming live XML weather data into XHTML for the currently selected twin.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/xsl/wlive_twin.xsl">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/xsl/wlive_twin.xsl
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>wforecast_town.xsl</b>
+                        <br />
+                        <span>
+                            XSL Stylesheet for transforming forecast XML weather data into XHTML for the currently selected main town.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/xsl/wforecast_town.xsl">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/xsl/wforecast_town.xsl
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>wforecast_twin.xsl</b>
+                        <br />
+                        <span>
+                            XSL Stylesheet for transforming forecast XML weather data into XHTML for the currently selected twin.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/xsl/wforecast_twin.xsl">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/xsl/wforecast_twin.xsl
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>weather.css</b>
+                        <br />
+                        <span>
+                            Styling rules for the Weather module.
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/weather.css">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/weather.css
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h3>Component: News</h3>
+                <span>Contributors:</span>
+                <ul>
+                    <li>10018627</li>
+                    <li>10000937</li>
+                </ul>
+                <span>Files:</span>
+                <ul>
+                    <li>
+                        <b>news.php</b>
+                        <br />
+                        <span>
+                            Description/purpose
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/news.phps">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/news.phps
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>jquery.vticker.js</b>
+                        <br />
+                        <span>
+                            Attribution: Tadas Juozapaitis
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/jquery.vticker.js">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/jquery.vticker.js
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>jquery.zrssfeed.js</b>
+                        <br />
+                        <span>
+                            Copyright 2010-2011, Zazar Ltd
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/jquery.zrssfeed.js">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/jquery.zrssfeed.js
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>ticker.css</b>
+                        <br />
+                        <span>
+                            Copyright 2010-2011, Zazar Ltd
+                        </span>
+                        <p>
+                            <a href="http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/ticker.css">
+                                http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/ticker.css
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,338 @@
+/**
+ * Document   : style.css
+ * Created on : 24 January 2012, 22:03
+ * Authors    : justin, chris, nathan
+ * Description:
+ *      Main CSS file for the DSA twin towns project.
+*/
+
+/* Reset all styles */
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {
+    border: 0;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+/* force vertical scrollbar */
+html { overflow-y: scroll; }
+
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+    display: block;
+}
+
+body {
+    background: #eee url(../images/bg.png) repeat;
+    color: #000;
+    font-family: Century Gothic, sans-serif;
+    font-family: Tahoma, Georgia, "Times New Roman", Times, serif;
+    font-size: 13px;
+    padding: 0;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 30px;
+}
+h2 {
+    font-size: 28px;
+}
+h3 {
+    font-size: 26px;
+}
+h4 {
+    font-size: 24px;
+}
+h5 {
+    font-size: 22px;
+}
+h6 {
+    font-size: 18px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    color: #333;
+    font-family: Artifika, Arial, Helvetica, sans-serif;
+}
+
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a {
+    color: #292929;
+    font-family: Artifika, Arial, Helvetica, sans-serif;
+}
+
+p {
+    color: #000;
+}
+
+a {
+    color: #A3443E;
+    outline: none;
+    text-decoration: none;
+}
+
+img {
+    border: 1px solid #ebebeb;
+    display: block;
+    margin: 0;
+    padding: 2px;
+}
+
+hr {
+    height: 1px;
+    background-color: #ccc;
+    color: #ccc;
+    border: 0px none;
+}
+
+#spinner {
+    border: none;
+    margin-top: 2px;
+    margin-bottom: 1px;
+}
+
+div.main-container {
+    display: block;
+    margin: 0 0 1px;
+    text-align: left;
+}
+
+div.main-container h1,div.main-container h2,div.main-container h3,div.main-container h4,div.main-container h5,div.main-container h6 {
+    font-family: Artifika, Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+}
+
+.container {
+    padding: 15px 0;
+}
+
+.header-container {
+	display: block;
+    margin: 0 auto;
+    position: relative;
+    width: 960px;
+    padding-bottom: 15px;
+}
+
+#container {
+    border-bottom: 5px solid #999;
+    border-top: 5px solid #999;
+    height: 350px;
+    margin: 0 auto;
+    position: relative;
+    width: 800px;
+}
+
+#current-towns {
+	height: 10px;
+	position: relative;
+}
+
+#current-town {
+    font-size: 40pt;
+	text-transform: uppercase;
+	color: #666;
+	font-weight: bold;
+	text-shadow: none !important;
+ 	opacity: 0.2 !important;
+ 	z-index: -20;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#current-twin {
+    font-size: 40pt;
+    text-transform: uppercase;
+    color: #666;
+    font-weight: bold;
+    text-shadow: none !important;
+    opacity: 0.2 !important;
+    z-index: -20;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+#twinnedwith {
+	font-size: 9pt;
+	text-transform: uppercase;
+}
+
+.content {
+    display: block;
+    float: left;
+    width: 600px;
+}
+
+footer {
+    font-size: 12px;
+}
+
+#tagline {
+    color: #333;
+    font-family: ChunkFive, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    padding-top: 5px;
+    text-shadow: 0 0 3px #555;
+}
+
+footer .tag-left {
+    float: left;
+}
+
+footer .tag-right {
+    float: right;
+}
+
+#header,.container,.container1,footer {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    width: 960px;
+}
+
+.clear {
+    clear: both;
+}
+
+img#tab-spinner {
+    float:left;
+    border:none;
+    vertical-align: top;
+}
+
+table {
+    border: 1px solid #CCC;
+    border-collapse: collapse;
+    margin: 5px;
+    table-layout: auto;
+    vertical-align: top;
+    width: 48.5%;
+    position: relative;
+}
+
+table tbody td {
+    border-collapse: collapse;
+    border: 1px solid #CCC;
+    vertical-align: middle;
+}
+
+table thead th,table tbody td {
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.left {
+    text-align: left;
+    float: left;
+}
+
+.right {
+    text-align: right;
+    float: right;
+}
+
+.attribution {
+    font-size: 9px;
+    float: right;
+    padding-right: 10px;
+}
+
+.attribution a {
+    text-decoration: underline !important;
+    color: #13c9d0 !important;
+}
+
+.attribution a:hover {
+    text-decoration: underline;
+}
+
+.attribution img {
+    border:none;
+    float:right;
+}
+
+/* CUSTOM UI STYLES !IMPORTANT! ---------------------------------------------------- */
+
+.box-rounded {
+    border: 1px solid #aaaaaa;
+    border-radius: 4px;
+    margin-bottom: 3px !important;
+    margin-top: 3px !important;
+}
+
+.box-rounded h4 {
+    border: none !important;
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 4px !important;
+    border-bottom: 1px solid #aaaaaa !important;
+    padding-left: 10px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    font-size: 14pt;
+}
+
+.box-rounded h5 {
+    border: none !important;
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 4px !important;
+    border-bottom: 1px solid #aaaaaa !important;
+    padding-left: 15px !important;
+    padding-right: 8px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    font-size: 14pt;
+}
+
+.box-inside {
+    margin: 10px;
+    font-size: 9pt;
+    font-weight: normal;
+}
+
+.wrap-content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.wrap-content .outer {
+    border: 1px solid #aaaaaa;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 8px;
+}
+
+.wrap-content h5 {
+    text-align: center;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    font-size: 10pt;
+    display: block !important;
+    border-bottom: none !important;
+    width: 60px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.box-inside fieldset {
+    margin-right: 10px;
+    border-radius: 4px;
+    display: block;
+    float: left;
+}
+
+.box-inside .small {
+    font-size: 7pt;
+}
+
+

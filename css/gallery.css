@@ -1,0 +1,260 @@
+#gallery-left {
+    width: 49%;
+    float: left;
+}
+
+#gallery-right {
+    width: 49%;
+    float:right;
+}
+
+#images {
+    display:none;	
+}
+
+.panel {
+    float:left;	
+}
+
+ul.exposureThumbs {
+    border-right:none;
+    padding:0;
+    margin:0;
+    list-style-type:none;
+    width:160px;
+}
+
+ul.exposureThumbs li {
+    margin:5px;
+    padding:0;
+    text-align:center;
+    display:none;
+}
+
+ul.exposureThumbs li img {
+    cursor:pointer;
+    width: 60px;
+    height: 60px;
+}
+
+ul.exposureThumbs li.last {
+
+}
+
+#exposure-left {
+    float:right;
+    margin:5px;
+}
+
+#exposure-right {
+    float:left;
+    margin:5px;
+}
+
+#images-left {
+    float:left;
+    margin:5px;
+}
+
+#images-right {
+    float:right;
+    margin:5px;
+}
+
+#controls-left {
+
+    margin-left: 12px;
+        clear:left;
+        padding-top:5px
+}
+
+#controls-right {
+    float: right;
+    width: 120px;
+    margin:5px;
+    margin-right: 20px;
+    clear:right;
+}
+
+#slideshow-left {
+    float:right;
+    margin-right:5px;
+
+}
+
+#slideshow-right {
+    float:left;
+    margin:5px;
+}
+
+#gallery .wrapper {
+    height:255px;
+}
+
+.exposureTarget {
+    width:800px;
+    height:600px;	
+    background-image:url(../images/loading.gif);
+    background-repeat:no-repeat;
+    background-position:center center;
+    float:right;	
+    padding:0;
+    margin:0;
+    position:relative;
+    overflow:hidden; 
+}
+
+.exposureWrapper {
+    position:absolute; 
+    top:0; 
+    left:0;
+    margin-top: 5px;
+}
+
+.exposureWrapper img {
+    cursor:pointer;
+    position:absolute;
+    top:0;
+    left:0;
+    margin:0;
+    padding:0;
+}
+
+.exposureLoaded {
+    background-image:none;	
+}
+
+.exposureData {
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    padding:5px;
+    background-image:url(../images/veil.png);
+    color:#fff;
+    font-family:Arial,Verdana,Helvetica,sans-serif;
+    font-size: 12px;
+}
+
+/* In this demo we are using thumbs with fixed size */
+ul.exposureThumbs li {
+    float:left;
+}
+
+.exposureSlideshowControls a,
+.exposureControls span,
+.exposureControls a {
+    font-family:Arial,Verdana,Helvetica,sans-serif;
+    font-size:11px;
+    padding:8px;
+    background-color:#999;
+    display:block;
+    float:left;
+}
+
+.exposureSlideshowControls a {
+    float:right;	
+}
+
+.exposureSlideshowControls a,
+.exposureControls a {
+    color:#ccc !important;
+    text-decoration:none;
+    outline:none;
+}
+
+.exposureSlideshowControls a:active,
+.exposureSlideshowControls a:hover,
+.exposureControls a:active,
+.exposureControls a:hover {
+    background-color:#888;
+    color:#ddd;
+}
+
+.exposurePaging .active {
+    color:#fff;
+    background-color:#777;	
+}
+
+.clear {
+    clear:both;	
+}
+
+p.info {
+    margin:40px auto;
+    text-align:center;	
+    width:600px;
+}
+
+p.info a {
+    color:#006fc0;	
+}
+
+p.info a:hover, p.info a:active {
+    color:#0084e7;	
+}
+
+#info {
+    font-size: 16px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 5px 5px 5px
+}
+
+#geo {
+    height: 54px;
+}
+
+#geo .distance {
+
+}
+
+#geo .distance-small {
+    font-size: 12px;
+}
+
+#geo .flight-time {
+    font-size: 10px;
+}
+
+#geo .car-time {
+    font-size: 10px;
+}
+
+.clock-left {
+    float:left;
+    margin-right: 10px;
+}
+
+.clock-right {
+    float:right;
+    margin-left: 10px;
+}
+
+.clock-left, .clock-right {
+    color: #444;
+    border: 1px solid #aaaaaa; 
+    background: #cccccc url(smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; 
+    font-weight: bold;
+    padding: 4px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    font-family: Courier, monospace;
+    font-size: 18px;
+}
+
+.clock-left .seconds, .clock-right .seconds {
+    font-size: 12px
+}
+
+.town-name-left {
+    margin-top: 5px;
+    float:left;
+}
+
+.town-name-right{
+    margin-top: 5px;
+    float:left;
+}

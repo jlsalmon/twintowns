@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<individual_metafile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:noNamespaceSchemaLocation="http://www.cems.uwe.ac.uk/~pchatter/2011/dsa/dsa_metafiles/individual_metafile.xsd">
+    
+    <!-- 
+        ==================================================================
+        File: individual_metafile.xml
+        Author: Justin Lewis Salmon
+        
+        Individual metafile for DSA Twin Towns assignment.
+        ==================================================================
+    -->
+    
+    <group id="UYCCYT1MR6"/>
+    <student id="10000937"/>
+    
+    <component type="Twitter feed">
+        <description>
+            Pulls a JSON string of tweets based upon the latitude/longitude of the currently selected town
+            and twin. Some fancy methods then format and output the tweets with avatars, links and hashtags 
+            as actual links to the relevant page on Twitter.
+  
+            Javascript/JQuery is used in a separate file to calculate how long it has been since the tweet
+            was posted, and to refresh the feed at regular intervals.
+            
+            The module is included on the Home page, but all that is needed to relocate it is to move the 
+            line of PHP that includes the file. This is because the module is, in fact, modular, and can 
+            be placed anywhere on the site.
+            
+            This is a 100% custom, original work. Styling ideas were taken from other custom Twitter feeds,
+            but all code has been written from scratch.
+        </description>
+        <problems>
+            (Problem 1) Initially, we were planning to host the site on an external server, before we knew 
+            we had to host is at UWE. So we were working locally, uploading to the server periodically.
+            When I uploaded the first draft of twitter.php, it broke the page, with no visible errors.
+             
+            (Problem 2) When I came to port the site to the UWE server, I experienced some strange issues.
+            They were not proxy-related, as I had already wrapped the necessary function calls with a 
+            function that uses the UWE proxy based on a global boolean, and I had set it to true when
+            I uploaded it. I went through many stages of debugging, dumping variables to see where the
+            error was. There were many different, seemingly unrelated errors.
+            
+            (Problem 3) When refreshing the feed by calling the JQuery method $.post(), the div container
+            would collapse to zero height, which looked ugly and caused the rest of the page content to
+            jump around.
+            
+            (Problem 4) Because the tweets are pulled based on geolocation, they come in all sorts of 
+            languages, with all kinds of strange characters. This meant that my regular expressions to
+            linkify hastags and usernames were failing and not displaying properly.
+            
+            (Problem 5) I wanted to be able to show a value representing how long ago a particular tweet
+            was posted, based on the timestamp returned in the JSON string. To start with, I tried doing 
+            this in PHP, but the timestamp was difficult to deal with, and I couldn't calculate
+            the value properly.
+            
+            (Problem 6) The feed is refreshed every 10 seconds, by sending an AJAX post request using
+            the JQuery setInterval() method. This works great, but there is a bug - if you leave the page
+            open in the browser and go do something else for a while, when you come back to the page it
+            sometimes has gotten itself into what looks like an infinite refresh loop. It fades in and out
+            constantly, over and over again.
+        </problems>
+        <solutions>
+            (Solution 1) SSH'ing into the server and running 'tail /var/log/apache2/error.log' showed that
+            the error was "Undefined call to function json_decode()". Googling this error, I found that 
+            json_decode() was introduced in PHP 5.2, and the server was running 5.1. So, we upgraded the 
+            PHP version to 5.3, which solved the problem.
+            
+            (Solution 2) When I did a var_dump() on the $_SESSION array, it contained my entire config XML 
+            tree! It should have only contained two strings - the name of the current town and twin. So, I 
+            figured that it was somehow getting placed in there (I was certainly not putting it there).
+            I was looping through the array, thinking that there were only 2 strings in there, so this 
+            was the source of my problem.
+            I knew about PHP register_globals, which puts any variable you create into $_SESSION, and it
+            turns out that the UWE servers have this turned on by default for some reason. So, to turn it
+            off in my directory, I created a .htaccess file with the line "php_flag register_globals off"
+            and, hey presto, everything worked.
+            
+            (Solution 3) I simply fixed the height of the div container.
+            
+            (Solution 4) I encoded the entire JSON string with utf8_encode().
+            
+            (Solution 5) I decided to process the timestamp client side, as javascript date formats are 
+            the same as the ones returned in the JSON string. The value is calculated each time the feed
+            is refreshed.
+               
+            (Solution 6) I don't have a fix for this bug yet!
+        </solutions>
+        <hours_effort>20</hours_effort>
+        <base_url>http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/</base_url>
+        <technologies>
+            <tech>php</tech>
+            <tech>javascript</tech>
+            <tech>html5</tech>
+            <tech>css</tech>
+            <tech>xhtml</tech>
+            <tech>other</tech>
+        </technologies>
+        <source_files>
+            <file>
+                <name>twitter.php</name>
+                <purpose>
+                    Pulls the location-based JSON string of tweets, and performs some processing on it to 
+                    linkify URLs, usernames, hashtags and avatars. The tweets are then output to the page 
+                    as HTML.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/twitter.phps
+                </source_url>
+            </file>
+            <file>
+                <name>twitter.js</name>
+                <purpose>
+                    Causes the twitter feed to be refreshed at regular time intervals. Also Takes the 
+                    timestamp of each tweet on the page, and replaces it with a string representing how 
+                    long ago the tweet was posted.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/twitter.js
+                </source_url>
+            </file>
+            <file>
+                <name>twitter.css</name>
+                <purpose>
+                    Styling rules for the Twitter module.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/twitter.css
+                </source_url>
+            </file>
+        </source_files>
+    </component>
+    
+    <component type="Image feed">
+        <description>
+            Makes use of the Tixik API to pull images of interest based on latitude/longitude. The images 
+            are then output in a nice little  thumbnail gallery. Client-side javascript provides image 
+            switching and caption overlaying.
+            
+            The Tixik API provides links to both thumbnails and full-size images, which fits in perfectly 
+            with this thumbnail gallery style implementation.
+            
+            This module is included in the Home tab, and should be accessed as such.
+        </description>
+        <problems>
+            (Problem 1) As I had gotten the code for the gallery slideshow from an external source, I had
+            to test it to see if it would integrate with the site. It worked beautifully with just a single
+            gallery on the page, but I wanted two galleries side by side. When I put the second gallery
+            into the page, the slideshow wouldn't work.
+            
+            (Problem 2) The way the slideshow works is to initially display the first image, then after
+            a certain time, place the second image behind the first and fade the first image out, resulting
+            in a nice fade-through transition. However, there is a slight flickering effect sometimes
+            during the transition.
+            
+            (Problem 3) The Tixik API feed delivers images of varying sizes, soemthing which the gallery
+            does not handle as well as it could. If the image is taller than the div, the div will jump to
+            resize itself, pushing all the content below it downwards.
+        </problems>
+        <solutions>
+            (Solution 1) Looking through the external code, I saw that the functionality was based on updating div's
+            with CSS IDs, and there was no functionality for using CSS classes. So, my solution was to 
+            create two galleries each with a unique ID, based on position (left/right).
+            
+            (Solution 2) I went deep into the library code, and changed the architecture of the way it
+            worked to a more efficient (and aesthetically pleasing) design. This eliminated the flickering.
+            
+            (Solution 3) I studied the images being returned, found the height of the tallest and widest
+            images, and fixed the div size to those dimensions, so every possible image size would fit 
+            comfortably in the container.
+        </solutions>
+        <hours_effort>15</hours_effort>
+        <base_url>http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/</base_url>
+        <technologies>
+            <tech>php</tech>
+            <tech>javascript</tech>
+            <tech>xml</tech>
+            <tech>html5</tech>
+            <tech>css</tech>
+            <tech>xhtml</tech>
+        </technologies>
+        <source_files>
+            <file>
+                <name>gallery.php</name>
+                <purpose>
+                    Pulls an XML file from the Tixik API based on latitude/longitude. Outputs an HTML 
+                    block which will be styled via CSS and made interactive via JQuery in separate files.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/gallery.phps
+                </source_url>
+            </file>
+            <file>
+                <name>gallery.js</name>
+                <purpose>
+                    Uses JQuery to create an interactive slideshow gallery.
+                    
+                    Note: While I edited this file heavily, I am not the original author.
+                    Attribution: Kristoffer Jelbring, MIT license.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/gallery.js
+                </source_url>
+            </file>
+            <file>
+                <name>gallery.css</name>
+                <purpose>
+                    Styling rules for the image gallery module.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/css/gallery.css
+                </source_url>
+            </file>
+        </source_files>
+    </component>
+    
+    <component type="Geolocation awareness">
+        <description>
+            Adds location awareness to the site, and uses it to show some interesting information about 
+            the town/twin based on the user's current location. 
+            
+            Displays the user's current location, and uses it to calculate the distance to each town/twin,
+            and how long it would take to travel there by plane and by car. It also displays the current 
+            time and timezone for each town/twin.
+            
+            This module is included in the Home tab of the site.
+        </description>
+        <problems>
+            (Problem 1) Getting the user's current location is nice, but not everyone will want to allow
+            me to get that information. Also, not all browsers support the required functions. So, I had
+            to deal with no location support situations.
+            
+            (Problem 2) I needed a way to calculate the distances between places using only latitude and
+            longitude values.
+            
+            (Problem 3) Originally, our towns were Exeter, Rennes, Bad Homburg and Terracina. Exeter is 
+            in the GMT timezone, and the other three are in CET. I was using the PHP function 
+            date_default_timezone_set() to set the timezone and then create a timestamp, which worked fine.
+            However, when we added data for 11 new towns (London and it's twins) there were some odd
+            timezones which weren't supported by date_default_timezone_set(), and were returning null
+            values. We stor the timezone for each town in the config file.
+        </problems>
+        <solutions>
+            (Solution 1) I added a JQuery error callback to the navigator.getCurrentPosition() method, 
+            which replaced the contents of the div with an appropriate error message.
+            
+            (Solution 2) Looking online, I found the "haversine" formula, which calculates an 
+            as-the-crow-flies distance based on geolocation. To, I implemented this in PHP. It was rather
+            tricky, and the calculations are not entirely accurate (off by ~10 miles, give or take). 
+            
+            (Solution 3) I found the EarthTools API, which allows you to get a localised timestamp based
+            on latitude/longitude. I simply used this, parsed the returned timestamp, added the 
+            user-friendly timezone string, and et voila.
+        </solutions>
+        <hours_effort>7</hours_effort>
+        <base_url>http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/</base_url>
+        <technologies>
+            <tech>php</tech>
+            <tech>javascript</tech>
+            <tech>html5</tech>
+            <tech>css</tech>
+            <tech>xhtml</tech>
+            <tech>other</tech>
+        </technologies>
+        <source_files>
+            <file>
+                <name>geolookup.php</name>
+                <purpose>
+                    Performs a reverse geolookup based on the user's latitude and longitude (passed in via
+                    JavaScript) to retrieve the name of the town/city the user is currently in. Uses the 
+                    Geonames API for the lookup.
+  
+                    Also performs distance and travel time calculations.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/geolookup.phps
+                </source_url>
+            </file>
+            <file>
+                <name>location.js</name>
+                <purpose>
+                    If the user's browser supports geolocation, this file gets the user's latitude and 
+                    longitude and passes it to geolookup.php, which will perform a reverse geolookup and 
+                    return information about the user's current location, whichwill then be placed in the 
+                    page.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/location.js
+                </source_url>
+            </file>
+            <file>
+                <name>time.php</name>
+                <purpose>
+                    Outputs the current local time and timezone for the currently 
+                    selected town/twin.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/time.phps
+                </source_url>
+            </file>
+            <file>
+                <name>time.js</name>
+                <purpose>
+                    Finds the timestamp output by time.php and updates it every second, turning it into a 
+                    little digital clock.
+                </purpose>
+                <source_url>
+                    http://www.cems.uwe.ac.uk/~jl2-salmon/dsa/js/time.js
+                </source_url>
+            </file>
+        </source_files>
+    </component>
+    <individual_comment>
+        We originally decided to take on one group component each, which worked well for a time, until
+        near the deadline; the group member assigned to the News component was having difficulty in
+        producing a working component. We worked together to build and integrate it; I then allowed
+        the other group member to take over and complete the component (styling, etc).
+        
+        The development process was fairly smooth. We started working on the site fairly early, and 
+        although the News component was a little late forthcoming, we had built the application in a
+        flexible enough way that integrating it towards the end was relatively simple.
+
+        On reflection, we probably could have integrated the components together in a more logical way,
+        such as putting the News component in the Home tab, and moving the Twitter component into a
+        "Social" tab, and including other components such as Facebook/Youtube/Foursquare etc. We could
+        also have incorporated more Map overlay options, instead of only the Lonely Planet overlay. We
+        could overlay pretty much anything, provided the data had geolocation metadata embedded.
+        
+        If I had more time I would definitely improve the look and feel of the site, especially the News
+        component, which I wasn't involved in the styling of. I would also liked to have been able to 
+        fix the bug in the Twitter component (it occasionally goes into a kind of infinite refresh).
+        
+        My main learning outcome was experience with XSLT - I had not used it before, but I am now 
+        relatively proficient at it. I find it very powerful and useful, and I hope to be able to use it
+        more frequently in the future. I also learn a fair amount about jQuery, which I used to great 
+        effect throughout the application.
+        
+        Overall, I didn't have any major problems with this assignment. Most of my time was spent 
+        tweaking CSS and making things look pretty.
+    </individual_comment>
+</individual_metafile>

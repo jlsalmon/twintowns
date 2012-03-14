@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : config.xml
+    Created on : 06 January 2012, 14:40
+    Authors    : Justin Lewis Salmon, Chris Smith, Nathan Luke Steers
+    Description:
+        Main configuration file for DSA twin towns project. Simply add
+        blocks for a town and its twins, and it will be visible on the
+        site.
+-->
+<!--
+First draft of configuration file. Please feel free to edit structure, but
+let others know so we can fix pathnames etc. -Justin
+
+Second draft. Towns are now either of type "main" or "twin". Main towns
+store a list of their matching twins in the <twins> tag, for use by the
+town chooser thingy. -Justin
+
+Third draft. Global module info goes in a <module> tag inside the root
+element, town-specific module info goes inside the <town> tags.
+    
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="config.xsd"
+        xmlns:dsa="http://dsa.funkyrobot.net">
+                
+    <module>
+        <name>Weather</name>
+        <apikey>f5baa265d5b11772</apikey>
+        <!--<apikey>c96707ad2a6e7467</apikey>-->
+        <url source="Google Weather">
+            <base>http://www.google.com/ig/api?weather=</base>
+            <attrib>http://www.google.com</attrib>
+        </url>
+        <url source="Weather Underground">
+            <base>http://api.wunderground.com/api/</base>
+            <attrib>http://www.wunderground.com</attrib>
+            <image>images/wunderground.jpg</image>
+            <params live_ext="/conditions/astronomy/satellite/q/" 
+                    forecast_ext="/forecast10day/q/" />
+        </url> 
+    </module>
+    
+    <module>
+        <name>Twitter</name>
+        <apikey />
+        <url source="Twitter">
+            <base>http://search.twitter.com/search.json?</base>
+            <attrib>http://twitter.com</attrib>
+            <params type="geo_search" search_radius="5mi" rpp="5" include_entities="true"/>
+        </url>  
+    </module>
+	
+    <module>
+        <name>Images</name>
+        <apikey>20120218574929726036918</apikey>
+        <url source="Tixik">
+            <base>http://www.tixik.com/en/api/nearby?</base>
+            <attrib>http://tixik.com</attrib>
+            <params limit="12" />
+        </url>
+    </module>
+
+    <module>
+        <name>Google Maps</name>
+        <apikey>AIzaSyCFgUjnf8LpbeFuwnWvrvYh9Z25MDg3K3k</apikey>
+    </module>
+    
+    <module>
+        <name>Lonely Planet</name>
+        <apikey>6sJFGK89atIA0K1wko37Xg:92DjsX7An0WOq6IhMOId15uN0sbxJEYkfKVHoI314</apikey>
+        <baseurl service="findplace">http://apigateway.lonelyplanet.com/api/places?name={name-substring}</baseurl>
+        <baseurl service="poibybounds">http://apigateway.lonelyplanet.com/api/bounding_boxes/{north},{south},{east},{west}/pois</baseurl>
+        <baseurl service="poibypid">http://apigateway.lonelyplanet.com/api/places/{placeID}/pois[?poi_type={type-name}]</baseurl>
+        <baseurl service="poibyid">http://apigateway.lonelyplanet.com/api/pois/{poi-id}</baseurl>
+    </module>
+    
+    <module>
+        <name>Feed Gatherer</name>
+        <apikey>ABQIAAAA-I08zmwd4fiCEJghcrnhFhQUCf3HuyiCY9iNJVi42uC9m98ZUBSAT3huA5KooRKqNNJ58woIAMqPbQ</apikey>
+        <baseurl>https://www.google.com/jsapi?key=</baseurl>
+    </module>
+    
+    <town type="main">
+        <name>Exeter</name>
+        <twins>
+            <twin>Rennes</twin>
+            <twin>Bad Homburg</twin>
+            <twin>Terracina</twin>
+        </twins>
+        <location>
+            <lat>50.718412</lat>
+            <long>-3.533899</long>
+        </location>
+        <bounds>
+            <lat>50.701419</lat>
+            <long>-3.573561</long>
+            <lat>50.735655</lat>
+            <long>-3.499746</long>
+        </bounds>
+        <timezone>GMT</timezone>
+        <maps>
+            <mapimg>images/exeter.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>359004</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:IDEVONEX3.xml" />
+            <source type="forecast" google_search_q="Exeter,%20Devon" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/uk/exeter</feed>
+            <team>exeter</team>
+        </news>
+    </town>  
+	
+    <town type="twin">
+        <name>Rennes</name>
+        <location>
+            <lat>48.113475</lat>
+            <long>-1.675708</long>
+        </location>
+        <bounds>
+            <lat>48.041197</lat>
+            <long>-1.817207</long>
+            <lat>48.178739</lat>
+            <long>-1.548042</long>
+        </bounds>
+        <timezone>CET</timezone>
+        <maps>
+            <mapimg>images/rennes.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>1003078</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:IBRETAGN39.xml" />
+            <source type="forecast" google_search_q="Rennes,%20Brittany" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/fr/rennes</feed>
+            <team>rennes</team>
+        </news>
+    </town>
+	
+    <town type="twin">
+        <name>Bad Homburg</name>
+        <location>
+            <lat>50.225361</lat>
+            <long>8.620276</long>
+        </location>
+        <bounds>
+            <lat>50.200477</lat>
+            <long>8.526421</long>
+            <lat>50.265482</lat>
+            <long>8.680916</long>
+        </bounds>
+        <timezone>CET</timezone>
+        <maps>
+            <mapimg>images/badhomburg.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>0</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:MAT564.xml" />
+            <source type="forecast" google_search_q="Bad%20Homburg" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/de/hessen</feed>
+            <team>bad_homburg</team>
+        </news>
+    </town>
+	
+    <town type="twin">
+        <name>Terracina</name>
+        <location>
+            <lat>41.291217</lat>
+            <long>13.248865</long>
+        </location>
+        <bounds>
+            <lat>41.227027</lat>
+            <long>13.127632</long>
+            <lat>41.361676</lat>
+            <long>13.415337</long>
+        </bounds>
+        <timezone>CET</timezone>
+        <maps>
+            <mapimg>images/terracina.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>0</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:ILAZIOLA4.xml" />
+            <source type="forecast" google_search_q="Terracina" />
+        </weather>
+        <news>http://www.topix.com/rss/it/terracina</news>
+        <team>terracina</team>
+    </town>
+    
+    <town type="main">
+        <name>London</name>
+        <twins>
+            <twin>Beijing</twin>
+            <twin>Berlin</twin>
+            <twin>Bogota</twin>
+            <twin>Moscow</twin>
+            <twin>New York</twin>
+            <twin>Kuala Lumpur</twin>
+            <twin>Paris</twin>
+            <twin>Rome</twin>
+            <twin>Tehran</twin>
+            <twin>Tokyo</twin>
+        </twins>
+        <location>
+            <lat>51.5081289</lat>
+            <long>-0.128005</long>
+        </location>
+        <bounds>
+            <lat>51.249252</lat>
+            <long>-0.560303</long>
+            <lat>51.723002</lat>
+            <long>0.343323</long>
+        </bounds>
+        <timezone>GMT</timezone>
+        <maps>
+            <mapimg>images/london.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>358914</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:IGREATER13.xml" />
+            <source type="forecast" google_search_q="London,%20UK" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/uk/london</feed>
+            <team>london</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>Beijing</name>
+        <location>
+            <lat>39.904214</lat>
+            <long>116.407413</long>
+        </location>
+        <bounds>
+            <lat>39.716976</lat>
+            <long>116.157074</long>
+            <lat>40.058384</lat>
+            <long>116.654205</long>
+        </bounds>
+        <timezone>CST</timezone>
+        <maps>
+            <mapimg>images/beijing.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>355905</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:IBEIJING13.xml" />
+            <source type="forecast" google_search_q="Beijing" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/cn/beijing</feed>
+            <team>beijing</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>Berlin</name>
+        <location>
+            <lat>52.524268</lat>
+            <long>13.40629</long>
+        </location>
+        <bounds>
+            <lat>52.450681</lat>
+            <long>13.270798</long>
+            <lat>52.576044</lat>
+            <long>13.53035</long>
+        </bounds>
+        <timezone>CET</timezone>
+        <maps>
+            <mapimg>images/berlin.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>359364</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:IBERLIN15.xml" />
+            <source type="forecast" google_search_q="Berlin" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/de/berlin</feed>
+            <team>berlin</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>Bogota</name>
+        <location>
+            <lat>4.598056</lat>
+            <long>-74.075833</long>
+        </location>
+        <bounds>
+            <lat>4.488558</lat>
+            <long>-74.21093</long>
+            <lat>4.794482</lat>
+            <long>-73.933525</long>
+        </bounds>
+        <timezone>COT</timezone>
+        <maps>
+            <mapimg>images/bogota.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>363308</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:IDISTRIT6.xml" />
+            <source type="forecast" google_search_q="Bogota,%20Serbia" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/co/bogota</feed>
+            <team>bogota</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>Moscow</name>
+        <location>
+            <lat>55.75</lat>
+            <long>37.616667</long>
+        </location>
+        <bounds>
+            <lat>55.570012</lat>
+            <long>37.323303</long>
+            <lat>55.914787</lat>
+            <long>37.919312</long>
+        </bounds>
+        <timezone>MSK</timezone>
+        <maps>
+            <mapimg>images/moscow.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>360429</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:IU041CU02.xml" />
+            <source type="forecast" google_search_q="Moscow" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/ru/moscow</feed>
+            <team>moscow</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>New York</name>
+        <location>
+            <lat>40.714353</lat>
+            <long>-74.005973</long>
+        </location>
+        <bounds>
+            <lat>40.649196</lat>
+            <long>-74.124413</long>
+            <lat>40.878028</lat>
+            <long>-73.804436</long>
+        </bounds>
+        <timezone>EST</timezone>
+        <maps>
+            <mapimg>images/newyork.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>0</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:KNYNEWYO45.xml" />
+            <source type="forecast" google_search_q="New%20York" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/nyc</feed>
+            <team>new_york_city</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>Kuala Lumpur</name>
+        <location>
+            <lat>3.139003</lat>
+            <long>101.686855</long>
+        </location>
+        <bounds>
+            <lat>2.994653</lat>
+            <long>101.524658</long>
+            <lat>3.283982</lat>
+            <long>101.854248</long>
+        </bounds>
+        <timezone>MYT</timezone>
+        <maps>
+            <mapimg>images/kualalumpur.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>356949</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="WMKK.xml" />
+            <source type="forecast" google_search_q="Kuala%20Lumpur" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/my/kuala-lumpur</feed>
+            <team>kuala_lumpur</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>Paris</name>
+        <location>
+            <lat>48.856614</lat>
+            <long>2.352222</long>
+        </location>
+        <bounds>
+            <lat>48.80308</lat>
+            <long>2.240868</long>
+            <lat>48.911504</lat>
+            <long>2.437935</long>
+        </bounds>
+        <timezone>CET</timezone>
+        <maps>
+            <mapimg>images/paris.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>359279</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:I75003PA1.xml" />
+            <source type="forecast" google_search_q="Paris" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/fr/paris</feed>
+            <team>paris</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>Rome</name>
+        <location>
+            <lat>41.89052</lat>
+            <long>12.494249</long>
+        </location>
+        <bounds>
+            <lat>41.791417</lat>
+            <long>12.374039</long>
+            <lat>41.981578</lat>
+            <long>12.625351</long>
+        </bounds>
+        <timezone>CET</timezone>
+        <maps>
+            <mapimg>images/rome.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>359975</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:ILAZIORO56.xml" />
+            <source type="forecast" google_search_q="Rome" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/it/rome</feed>
+            <team>rome</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>Tehran</name>
+        <location>
+            <lat>35.696111</lat>
+            <long>51.423056</long>
+        </location>
+        <bounds>
+            <lat>35.576507</lat>
+            <long>51.260147</long>
+            <lat>35.820746</lat>
+            <long>51.624069</long>
+        </bounds>
+        <timezone>IRST</timezone>
+        <maps>
+            <mapimg>images/tehran.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>361025</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="OIII.xml" />
+            <source type="forecast" google_search_q="Tehran" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/ir/tehran</feed>
+            <team>tehran</team>
+        </news>
+    </town>
+    
+    <town type="twin">
+        <name>Tokyo</name>
+        <location>
+            <lat>35.689488</lat>
+            <long>139.691706</long>
+        </location>
+        <bounds>
+            <lat>35.208076</lat>
+            <long>138.946838</long>
+            <lat>36.313502</lat>
+            <long>140.380554</long>
+        </bounds>
+        <timezone>JST</timezone>
+        <maps>
+            <mapimg>images/tokyo.png</mapimg>
+        </maps>
+        <lonelyplanet>
+            <placeid>356817</placeid>
+        </lonelyplanet>
+        <weather>
+            <source type="live" wunderground_station_id="pws:ITOKYOOO2.xml" />
+            <source type="forecast" google_search_q="Tokyo" />
+        </weather>
+        <news>
+            <feed>http://www.topix.com/rss/jp/tokyo</feed>
+            <team>tokyo</team>
+        </news>
+    </town>
+    
+</config>
